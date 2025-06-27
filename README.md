@@ -1,4 +1,4 @@
-![CHeckOut](https://github.com/user-attachments/assets/f5b0485e-58b5-42a5-b49e-4390493e9630)# ☕ Cupping Corner Coffee - Flutter App
+## ☕ Cupping Corner Coffee - Flutter App
 
 A beautiful coffee shop mobile application built with Flutter, featuring product listings, detailed views, and smooth navigation.
 
