@@ -1,8 +1,11 @@
+// Details/description.dart (Updated)
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 
 class Description extends StatefulWidget {
-  const Description({super.key});
+  final String description;
+
+  const Description({super.key, required this.description});
 
   @override
   State<Description> createState() => _DescriptionState();
@@ -10,7 +13,6 @@ class Description extends StatefulWidget {
 
 class _DescriptionState extends State<Description> {
   int selectedIndex = 2; // 0 for S, 1 for M, 2 for L
-
   final sizes = ['S', 'M', 'L'];
 
   @override
@@ -25,20 +27,20 @@ class _DescriptionState extends State<Description> {
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
-          const ReadMoreText(
-            'Cappuccino is a classic Italian coffee drink renowned for its harmonious balance of bold espresso, creamy steamed milk, and frothy milk foam. Cappuccino is a classic Italian coffee drink renowned for its harmonious balance of bold espresso, creamy steamed milk, and frothy milk foam.',
-            trimLines: 4,
-            colorClickableText: Color(0xffBF6C38),
+          ReadMoreText(
+            widget.description,
+            trimLines: 3,
+            colorClickableText: const Color(0xffBF6C38),
             trimMode: TrimMode.Line,
             trimCollapsedText: ' Read More',
             trimExpandedText: ' Read Less',
-            style: TextStyle(fontSize: 15),
-            moreStyle: TextStyle(
+            style: const TextStyle(fontSize: 15),
+            moreStyle: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xffBF6C38),
             ),
-            lessStyle: TextStyle(
+            lessStyle: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xffBF6C38),
@@ -50,19 +52,13 @@ class _DescriptionState extends State<Description> {
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
-
-          // Simple Row of Buttons
           Row(
             children: List.generate(sizes.length, (index) {
               bool isSelected = index == selectedIndex;
               return Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                  },
+                  onTap: () => setState(() => selectedIndex = index),
                   child: Container(
                     width: 85,
                     height: 45,

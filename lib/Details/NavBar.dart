@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Navbar extends StatelessWidget {
-  const Navbar({super.key});
+  final String price;
+
+  const Navbar({super.key, required this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +28,17 @@ class Navbar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Price section
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text('Price', style: TextStyle(fontSize: 16, color: Colors.grey)),
-              SizedBox(height: 4),
+            children: [
+              const Text(
+                'Price',
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+              const SizedBox(height: 4),
               Text(
-                '\$ 99.9',
-                style: TextStyle(
+                price,
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Color(0xffBF6C38),
@@ -42,8 +46,7 @@ class Navbar extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(width: 30),
-          // Buy Now Button
+          const SizedBox(width: 30),
           GestureDetector(
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(

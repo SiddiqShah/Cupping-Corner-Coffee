@@ -1,10 +1,13 @@
+// Details/DetailsScreen.dart (Updated)
 import 'package:cupping_corner_coffee/Details/NavBar.dart';
 import 'package:cupping_corner_coffee/Details/description.dart';
-import 'package:cupping_corner_coffee/HomeScreen/homeScreen.dart';
+import 'package:cupping_corner_coffee/models/Models.dart';
 import 'package:flutter/material.dart';
 
 class Detailsscreen extends StatefulWidget {
-  const Detailsscreen({super.key});
+  final Coffee coffee;
+
+  const Detailsscreen({super.key, required this.coffee});
 
   @override
   State<Detailsscreen> createState() => _DetailsscreenState();
@@ -22,14 +25,7 @@ class _DetailsscreenState extends State<Detailsscreen> {
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Homescreen(),
-                      ),
-                    );
-                  },
+                  onTap: () => Navigator.pop(context),
                   child: Container(
                     width: 40,
                     height: 40,
@@ -53,7 +49,12 @@ class _DetailsscreenState extends State<Detailsscreen> {
             ),
           ),
           const SizedBox(height: 40),
-          Image.asset('images/315.png'),
+          Image.asset(
+            widget.coffee.image,
+            height: 200,
+            width: 200,
+            fit: BoxFit.cover,
+          ),
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -62,17 +63,17 @@ class _DetailsscreenState extends State<Detailsscreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Cappuccino',
-                    style: TextStyle(
+                  Text(
+                    widget.coffee.name,
+                    style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
-                  const Text(
-                    'with Oat milk',
-                    style: TextStyle(
+                  Text(
+                    widget.coffee.subtitle,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
                       color: Color.fromARGB(255, 147, 147, 147),
@@ -86,16 +87,16 @@ class _DetailsscreenState extends State<Detailsscreen> {
                         color: Color.fromARGB(255, 255, 234, 43),
                         size: 15,
                       ),
-                      const Text(
-                        ' 3.9',
-                        style: TextStyle(
+                      Text(
+                        ' ${widget.coffee.rating}',
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      const Text(
-                        ' (150)',
-                        style: TextStyle(
+                      Text(
+                        ' (${widget.coffee.reviews})',
+                        style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
                           color: Color.fromARGB(255, 147, 147, 147),
@@ -145,11 +146,14 @@ class _DetailsscreenState extends State<Detailsscreen> {
           const SizedBox(height: 15),
           const Divider(indent: 35, endIndent: 35),
           const SizedBox(height: 10),
-
-          Expanded(child: SingleChildScrollView(child: Description())),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Description(description: widget.coffee.description),
+            ),
+          ),
         ],
       ),
-      bottomNavigationBar: const Navbar(),
+      bottomNavigationBar: Navbar(price: widget.coffee.price),
     );
   }
 }

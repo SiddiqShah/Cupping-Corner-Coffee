@@ -1,9 +1,11 @@
+// HomeScreen/homeScreen.dart (Updated)
 import 'package:cupping_corner_coffee/Details/DetailsScreen.dart';
 import 'package:cupping_corner_coffee/HomeScreen/BottonNavBar.dart';
 import 'package:cupping_corner_coffee/HomeScreen/ChooseCoffee.dart';
 import 'package:cupping_corner_coffee/HomeScreen/SalesContainer.dart';
 import 'package:cupping_corner_coffee/HomeScreen/SearchBar.dart';
 import 'package:cupping_corner_coffee/HomeScreen/Selectitem.dart';
+import 'package:cupping_corner_coffee/models/Models.dart';
 import 'package:flutter/material.dart';
 
 class Homescreen extends StatefulWidget {
@@ -16,6 +18,8 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
+    final coffees = CoffeeData.coffees;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 233, 233, 233),
       body: SingleChildScrollView(
@@ -47,7 +51,6 @@ class _HomescreenState extends State<Homescreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Location section
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -141,76 +144,69 @@ class _HomescreenState extends State<Homescreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const Detailsscreen(),
+                    children: coffees
+                        .take(3)
+                        .map(
+                          (coffee) => Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
                               ),
-                            );
-                          },
-                          child: Choosecoffee(
-                            img: 'images/1.png',
-                            title: 'Cappuccino',
-                            subTitle: 'with Oat milk',
-                            price: r'$ 99.9',
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          Detailsscreen(coffee: coffee),
+                                    ),
+                                  );
+                                },
+                                child: Choosecoffee(
+                                  img: coffee.image,
+                                  title: coffee.name,
+                                  subTitle: coffee.subtitle,
+                                  price: coffee.price,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Choosecoffee(
-                          img: 'images/2.png',
-                          title: 'Cardimum',
-                          subTitle: 'with milk',
-                          price: r'$ 60.9',
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Choosecoffee(
-                          img: 'images/3.png',
-                          title: 'Black Bull',
-                          subTitle: 'with pure milk',
-                          price: r'$ 50.9',
-                        ),
-                      ),
-                    ],
+                        )
+                        .toList(),
                   ),
                   const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Choosecoffee(
-                          img: 'images/4.png',
-                          title: 'Janan',
-                          subTitle: 'with pure milk',
-                          price: r'$ 99.9',
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Choosecoffee(
-                          img: 'images/5.png',
-                          title: 'Late',
-                          subTitle: 'with Oat milk',
-                          price: r'$ 99.9',
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Choosecoffee(
-                          img: 'images/6.png',
-                          title: 'Cold Mocha',
-                          subTitle: 'with Oat milk',
-                          price: r'$ 99.9',
-                        ),
-                      ),
-                    ],
+                    children: coffees
+                        .skip(3)
+                        .take(3)
+                        .map(
+                          (coffee) => Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          Detailsscreen(coffee: coffee),
+                                    ),
+                                  );
+                                },
+                                child: Choosecoffee(
+                                  img: coffee.image,
+                                  title: coffee.name,
+                                  subTitle: coffee.subtitle,
+                                  price: coffee.price,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
                 ],
               ),
